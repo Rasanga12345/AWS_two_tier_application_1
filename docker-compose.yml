@@ -38,8 +38,7 @@ services:
       - two-tier-nt
 
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
 
 volumes:
   mysql_data:
