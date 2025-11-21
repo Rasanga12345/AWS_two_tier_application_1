@@ -17,12 +17,6 @@ services:
       - two-tier-nt
 
     restart: always
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot","-proot"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
 
 
   flask-app:
@@ -43,8 +37,9 @@ services:
       - two-tier-nt
 
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
+      
+    restart: always
 
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
